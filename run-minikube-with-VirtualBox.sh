@@ -117,7 +117,9 @@ if [ ${WITHOUT_VM} -eq 0 ]; then
     ## -- With VM Driver
     ## VirtualBox or KVM or none
     VM_DRIVER=`echo "${VM_DRIVER}" | tr '[:upper:]' '[:lower:]'`
-    sudo minikube start --vm-driver=${VM_DRIVER}
+    #sudo minikube start --vm-driver=${VM_DRIVER}
+    
+    sudo minikube start
     waitForKubeUp
 else
     ## ****************************************************************************************
@@ -159,5 +161,6 @@ fi
 #  ===================
 #  WARNING: IT IS RECOMMENDED NOT TO RUN THE NONE DRIVER ON PERSONAL WORKSTATIONS
 #  	The 'none' driver will run an insecure kubernetes apiserver as root that may leave the host vulnerable to CSRF attacks
+
 
 
