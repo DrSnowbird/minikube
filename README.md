@@ -4,6 +4,16 @@
 [![CodeCovWidget]][CodeCovResult]
 [![GoReport Widget]][GoReport Status]
 
+# To run without VM (recommended to local machine)
+```
+run-minikube-no-VM.sh
+```
+
+# To start Dashboard when run without VM
+* Dashboard won't work in VM mode
+```
+run-Dashboard-Browser.sh
+```
 [BuildStatus Result]: https://travis-ci.org/kubernetes/minikube
 [BuildStatus Widget]: https://travis-ci.org/kubernetes/minikube.svg?branch=master
 
