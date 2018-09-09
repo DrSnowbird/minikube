@@ -123,7 +123,7 @@ if [ ${WITHOUT_VM} -eq 0 ]; then
     ## -- With VM Driver
     ## VirtualBox or KVM or none
     VM_DRIVER=`echo "${VM_DRIVER}" | tr '[:upper:]' '[:lower:]'`
-    sudo minikube start --vm-driver=${VM_DRIVER}
+    ./minikube start --vm-driver=${VM_DRIVER}
     waitForKubeUp
 else
     ## ****************************************************************************************
@@ -147,7 +147,8 @@ else
     #   sudo -E ./minikube start --vm-driver=none --apiserver-ips 127.0.0.1 --apiserver-name localhost
     #   waitForKubeUp
     #fi
-    sudo -E minikube start --vm-driver=none
+    #sudo -E minikube start --vm-driver=none
+    sudo -E ./minikube start --vm-driver=none --apiserver-ips 127.0.0.1 --apiserver-name localhost
     waitForKubeUp
 fi
 

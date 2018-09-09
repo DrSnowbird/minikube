@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-minikube start
+# minikube start
 
 kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.4 --port=8080
 

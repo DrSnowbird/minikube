@@ -112,6 +112,11 @@ function waitForKubeUp() {
     done
 }
 
+###################################################
+#### Clean up old residues of minikue machines ####
+###################################################
+rm -rf ~/.minikube/machines
+
 ## ---- Start kube ----
 if [ ${WITHOUT_VM} -eq 0 ]; then
     ## -- With VM Driver
