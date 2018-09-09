@@ -15,7 +15,7 @@
 ##    none
 ##
 
-WITH_VM=0
+WITH_VM=1
 RE_INSTALL_MINIKUBE=1
 ./run-minikube-with-or-without-VM.sh ${WITH_VM} ${RE_INSTALL_MINIKUBE}
 
