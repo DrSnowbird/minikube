@@ -19,6 +19,7 @@
 # To run without (NO) VM as Driver
 * Important: Only run this if you are using VM already - you can't spawn a VM within a VM).
 * The script captures many of steps suggested in the official Minikube blogs already as handy start up script for Minikube.
+* [see also](https://github.com/robertluwang/docker-hands-on-guide/blob/master/minikube-none-installation.md)
 ```
 run-minikube-with-or-without-VM.sh 0
 ```
