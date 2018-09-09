@@ -1,10 +1,10 @@
-#!/bin/bash -x
+#!/bin/bash
 
 #### ---- Usage ----
 function usage() {
     echo "--------------------------------------------------------------------------------"
     echo "Usage: $(basename $0) [<Wiht_VM_or_NOT> [<re-install_or_not> ] ]"
-    echo "  <Wiht_VM_or_NOT: default=0 (NO VM, e.g. VirtualBox, etc.)>"
+    echo "  <Wiht_VM_or_NOT: default=1 (with VM, e.g. VirtualBox, etc.)>"
     echo "  <re-install_or_not>: default 1 (Not to re-install) "
     echo "--------------------------------------------------------------------------------"
 }

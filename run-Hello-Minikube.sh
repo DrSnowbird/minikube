@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 # minikube start
 
@@ -11,11 +11,11 @@ kubectl expose deployment hello-minikube --type=NodePort
 # To check whether the pod is up and running we can use the following:
 kubectl get pod
 
-# We can see that the pod is still being created from the ContainerCreating status
-kubectl get pod
-
 echo "..... Wait for 60 seconds for Kubernettes to come up fully ....."
 wait 60
+
+# We can see that the pod is still being created from the ContainerCreating status
+kubectl get pod
 
 # We can see that the pod is now Running and we will now be able to curl it:
 curl $(minikube service hello-minikube --url)

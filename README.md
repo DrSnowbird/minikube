@@ -1,27 +1,8 @@
 # Minikube
-
 [![BuildStatus Widget]][BuildStatus Result]
 [![CodeCovWidget]][CodeCovResult]
 [![GoReport Widget]][GoReport Status]
 
-# To run without (NO) VM as Driver
-* Important: Only run this if you are using VM already - you can't spawn a VM within a VM)
-```
-run-minikube-with-or-without-VM.sh 0
-```
-# To run with VM (Recommended for local machine)
-* This will install the latest release Kubernetes' version
-* (default to run WITH VM=virtualbox)
-```
-run-minikube-with-or-without-VM.sh
-```
-
-# To start Dashboard when run without VM
-* Dashboard won't work in VM mode (Do NOT use sudo with dashboard since browsers will give errors!)
-```
-minikube dashboard
-
-```
 [BuildStatus Result]: https://travis-ci.org/kubernetes/minikube
 [BuildStatus Widget]: https://travis-ci.org/kubernetes/minikube.svg?branch=master
 
@@ -33,6 +14,32 @@ minikube dashboard
 
 <img src="https://github.com/kubernetes/minikube/raw/master/logo/logo.png" width="100">
 
+
+# ------------------- BEGIN: added by DrSnowbird ------------
+# To run without (NO) VM as Driver
+* Important: Only run this if you are using VM already - you can't spawn a VM within a VM).
+* The script captures many of steps suggested in the official Minikube blogs already as handy start up script for Minikube.
+```
+run-minikube-with-or-without-VM.sh 0
+```
+# To run with VM (Recommended for local machine)
+* This will install the latest release Kubernetes' version -- you can change it manually
+* (default to run WITH VM=virtualbox)
+```
+run-minikube-with-or-without-VM.sh
+```
+
+# To start Dashboard when run without VM
+* Dashboard won't work in VM mode (Do NOT use sudo with dashboard since browsers will give errors!)
+* [see also Kubernetes's dashboard document](https://kubernetes.io/docs/setup/minikube/#dashboard)
+```
+minikube dashboard
+```
+or
+```
+firefox http://192.168.99.100:30000/
+```
+# ------------------- END: added by DrSnowbird ------------
 ## What is Minikube?
 
 Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a single-node Kubernetes cluster inside a VM on your laptop for users looking to try out Kubernetes or develop with it day-to-day.
@@ -95,9 +102,8 @@ mkdir -p $HOME/.kube
 touch $HOME/.kube/config
 
 export KUBECONFIG=$HOME/.kube/config
-## -- INCORRECT: (see https://github.com/kubernetes/minikube/issues/2575)
-# sudo -E ./minikube start --vm-driver=none
-sudo -E ./minikube start--vm-driver=none --apiserver-ips 127.0.0.1 --apiserver-name localhost
+sudo -E minikube start --vm-driver=none
+# sudo -E ./minikube start--vm-driver=none --apiserver-ips 127.0.0.1 --apiserver-name localhost
 
 # this for loop waits until kubectl can access the api server that Minikube has created
 for i in {1..150}; do # timeout for 5 minutes
