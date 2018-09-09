@@ -40,6 +40,12 @@ or
 ```
 firefox http://192.168.99.100:30000/
 ```
+
+# To check Minikube Status
+```
+kubectl get all,pv,pvc,pod,service --all-namespaces
+```
+
 # ------------------- END: added by DrSnowbird ------------
 ## What is Minikube?
 
