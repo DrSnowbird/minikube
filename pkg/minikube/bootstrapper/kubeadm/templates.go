@@ -26,6 +26,7 @@ var kubeadmConfigTemplate = template.Must(template.New("kubeadmConfigTemplate").
 	"printMapInOrder": printMapInOrder,
 }).Parse(`apiVersion: kubeadm.k8s.io/v1alpha1
 kind: MasterConfiguration
+{{if .NoTaintMaster}}noTaintMaster: true{{end}}
 api:
   advertiseAddress: {{.AdvertiseAddress}}
   bindPort: {{.APIServerPort}}
@@ -39,6 +40,8 @@ etcd:
 nodeName: {{.NodeName}}
 {{range .ExtraArgs}}{{.Component}}:{{range $i, $val := printMapInOrder .Options ": " }}
   {{$val}}{{end}}
+{{end}}{{if .FeatureArgs}}featureGates: {{range $i, $val := .FeatureArgs}}
+  {{$i}}: {{$val}}{{end}}
 {{end}}`))
 
 var kubeletSystemdTemplate = template.Must(template.New("kubeletSystemdTemplate").Parse(`
