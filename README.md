@@ -4,15 +4,23 @@
 [![CodeCovWidget]][CodeCovResult]
 [![GoReport Widget]][GoReport Status]
 
-# To run without VM (recommended to local machine)
+# To run without (NO) VM as Driver
+* Important: Only run this if you are using VM already - you can't spawn a VM within a VM)
 ```
-run-minikube-no-VM.sh
+run-minikube-with-or-without-VM.sh 0
+```
+# To run with VM (Recommended for local machine)
+* This will install the latest release Kubernetes' version
+* (default to run WITH VM=virtualbox)
+```
+run-minikube-with-or-without-VM.sh
 ```
 
 # To start Dashboard when run without VM
-* Dashboard won't work in VM mode
+* Dashboard won't work in VM mode (Do NOT use sudo with dashboard since browsers will give errors!)
 ```
-run-Dashboard-Browser.sh
+minikube dashboard
+
 ```
 [BuildStatus Result]: https://travis-ci.org/kubernetes/minikube
 [BuildStatus Widget]: https://travis-ci.org/kubernetes/minikube.svg?branch=master
