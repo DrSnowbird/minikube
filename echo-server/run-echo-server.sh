@@ -3,13 +3,15 @@
 WEB_PORT=8080
 SLEEP_SEC=6
 
+DELETE_WHEN_DONE=0
+
 ## deployment "hello-minikube" created
 # sudo kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.4 --port=8080
-sudo kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.4 --port=${WEB_PORT}
+kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.4 --port=${WEB_PORT}
 sleep ${SLEEP_SEC}
 
 ## service "hello-minikube" exposed
-sudo kubectl expose deployment hello-minikube --type=NodePort
+kubectl expose deployment hello-minikube --type=NodePort
 
 sleep ${SLEEP_SEC}
 
@@ -19,14 +21,14 @@ sleep ${SLEEP_SEC}
 # To check whether the pod is up and running we can use the following:
 #   NAME                              READY     STATUS              RESTARTS   AGE
 #   hello-minikube-3383150820-vctvh   1/1       ContainerCreating   0          3s
-sudo kubectl get pod
+kubectl get pod
 
 sleep ${SLEEP_SEC}
 
 # We can see that the pod is still being created from the ContainerCreating status
 #  NAME                              READY     STATUS    RESTARTS   AGE
 # hello-minikube-3383150820-vctvh   1/1       Running   0          13s
-sudo kubectl get pod
+kubectl get pod
 
 sleep ${SLEEP_SEC}
 
@@ -38,19 +40,20 @@ sleep ${SLEEP_SEC}
 #  ...
 curl $(sudo minikube service hello-minikube --url)
 
-sleep ${SLEEP_SEC}
+if [ $DELETE_WHEN_DONE -gt 0 ]; then
+    sleep ${SLEEP_SEC}
 
-# service "hello-minikube" deleted
-sudo kubectl delete service hello-minikube
+    # service "hello-minikube" deleted
+    sudo kubectl delete service hello-minikube
 
-sleep ${SLEEP_SEC}
+    sleep ${SLEEP_SEC}
 
-# deployment "hello-minikube" deleted
-sudo kubectl delete deployment hello-minikube
+    # deployment "hello-minikube" deleted
+    sudo kubectl delete deployment hello-minikube
 
-sleep ${SLEEP_SEC}
+    sleep ${SLEEP_SEC}
 
-# Stopping local Kubernetes cluster...
-# Machine stopped.
-sudo minikube stop
-
+    # Stopping local Kubernetes cluster...
+    # Machine stopped.
+    sudo minikube stop
+fi

@@ -16,7 +16,7 @@ RE_INSTALL_MINIKUBE=${2:-1}
 
 ## -- With VM Driver
 ## List of VM Drivers:
-## virtualbox
+##    virtualbox
 ##    vmwarefusion
 ##    KVM2
 ##    KVM (deprecated in favor of KVM2)
@@ -153,7 +153,7 @@ setupKubeLocalDirectory
 function waitForKubeUp() {
     # this for loop waits until kubectl can access the api server that Minikube has created
     for i in {1..100}; do # timeout for 180 minutes
-       sudo kubectl get po > /dev/null
+       kubectl get pod --all-namespaces
        if [ $? -ne 1 ]; then
           echo "waitForKubeUp(): ... possible some errors .... to see whether k8s_xxx containers showing up..."
           break
@@ -165,12 +165,25 @@ function waitForKubeUp() {
 
 
 ## ---- Start kube ----
+#### Clean up old minikube setup/configurations if needed
+sudo rm -rf ~/.minikube*
+sudo rm -rf ~/.kube/config
+
+#######################################################################################
+#### Don't start minikube with "sudo" or "root" or you will have permission issue! ####
+#######################################################################################
+
+DOCKER_ENV=
+#DOCKER_ENV="--docker-env HTTP_PROXY=http://your-http-proxy-host:your-http-proxy-port  --docker-env HTTPS_PROXY=http(s)://your-https-proxy-host:your-https-proxy-port"
+## minikube start --vm-driver=virtualbox --docker-env HTTP_PROXY=http://your-http-proxy-host:your-http-proxy-port  --docker-env HTTPS_PROXY=http(s)://your-https-proxy-host:your-https-proxy-port
+
 if [ ${WITH_VM} -eq 1 ]; then
     ## -- With VM Driver
     ## VirtualBox or KVM or none
     VM_DRIVER=`echo "${VM_DRIVER}" | tr '[:upper:]' '[:lower:]'`
-    #sudo minikube start --vm-driver=${VM_DRIVER}
-    minikube start --extra-config=apiserver.v=4 --bootstrapper=localkube
+    minikube start ${DOCKER_ENV}
+    #minikube start --vm-driver=${VM_DRIVER}
+    #minikube start --extra-config=apiserver.v=4 --bootstrapper=localkube
     #minikube start --kubernetes-version="v1.10.0" --extra-config=apiserver.v=4 --bootstrapper=localkube
     waitForKubeUp
 else
@@ -197,8 +210,8 @@ else
     #fi
     #sudo -E minikube start --vm-driver=none
     sudo -E minikube start --vm-driver=none --apiserver-ips 127.0.0.1 --apiserver-name localhost
-    sudo -E minikube start --vm-driver=none --kubernetes-version="v1.10.0" --extra-config=apiserver.v=4 --bootstrapper=localkube
-    sudo -E minikube start --kubernetes-version="v1.10.0" --vm-driver=kvm2 --extra-config=apiserver.v=4 --bootstrapper=localkube
+    #sudo -E minikube start --vm-driver=none --kubernetes-version="v1.10.0" --extra-config=apiserver.v=4 --bootstrapper=localkube
+    #sudo -E minikube start --vm-driver=kvm2 --kubernetes-version="v1.10.0" --extra-config=apiserver.v=4 --bootstrapper=localkube
     waitForKubeUp
 
     ## localkube (not needed!)

@@ -14,7 +14,6 @@
 
 <img src="https://github.com/kubernetes/minikube/raw/master/logo/logo.png" width="100">
 
-
 # ------------------- BEGIN: added by DrSnowbird ------------
 # To run without (NO) VM as Driver
 * Important: Only run this if you are using VM already - you can't spawn a VM within a VM).
@@ -39,6 +38,8 @@ minikube dashboard
 or
 ```
 firefox http://192.168.99.100:30000/
+or
+<Your-Browser-Command> http://192.168.99.100:30000/
 ```
 
 # To check Minikube Status
@@ -46,7 +47,27 @@ firefox http://192.168.99.100:30000/
 kubectl get all,pv,pvc,pod,service --all-namespaces
 ```
 
+# Deploy Examples
+* deployment "hello-minikube" created
+```
+kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.4 --port=8080 --generator=deployment/apps.v1
+```
+
+# To Shutdown (not Delete/Destroy)
+You just want to stop Minikube while preserving existing deployments
+```
+minikube stop
+```
+
+# To Delete (Destroy/Destroy)
+You want to destroy everything of Minikube to start over later.
+```
+minikube delete
+sudo rm -rf ~/.minikube*
+sudo rm -rf ~/.kube
+```
 # ------------------- END: added by DrSnowbird ------------
+
 ## What is Minikube?
 
 Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a single-node Kubernetes cluster inside a VM on your laptop for users looking to try out Kubernetes or develop with it day-to-day.
@@ -241,7 +262,7 @@ Minikube uses [libmachine](https://github.com/docker/machine/tree/master/libmach
 For more information about Minikube, see the [proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/cluster-lifecycle/local-cluster-ux.md).
 
 ## Additional Links
-
+* [**Hello-Minikube**](https://kubernetes.io/docs/tutorials/hello-minikube/)
 * [**Advanced Topics and Tutorials**](https://github.com/kubernetes/minikube/blob/master/docs/README.md)
 * [**Contributing**](https://github.com/kubernetes/minikube/blob/master/CONTRIBUTING.md)
 * [**Development Guide**](https://github.com/kubernetes/minikube/blob/master/docs/contributors/README.md)

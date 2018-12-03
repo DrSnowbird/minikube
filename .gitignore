@@ -47,3 +47,4 @@ zero*
 config.yaml
 history.*
 
+*.log
